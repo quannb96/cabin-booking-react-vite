@@ -1,12 +1,34 @@
-# React + React Query + Typescript + Supabase
+# React + React Query + TypeScript + Supabase
 
-- To set up locally, create `.env.local` using `.env.local.example` file and add supabase credentials. 
-- `npm run dev`
-- Project is hosted in vercel use this `quannb96-cabin-booking-vite-react.vercel.app/signup` to play around.
+This is a hotel booking web application built with React, React Query, TypeScript, and Supabase.
 
-# SQL for supabase:
+## 🚀 Getting Started Locally
+
+1. Clone the repository.
+2. Create a `.env.local` file using `.env.local.example` as a template, and add your Supabase credentials.
+3. Run the development server:
+
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+## Live Demo
+- The project is hosted on Vercel.
+- Try it out here: https://quannb96-cabin-booking-vite-react.vercel.app/signup
+
+##  Supabase Setup
+
+- If you don’t have an account yet, create one at https://supabase.com/.
+
+- Create a new project.
+
+- Use the following SQL to set up the required tables:
+
+## SQL Schema for Supabase
 
 ``` sql
+-- Guests table
 create table public.guests (
   id bigint generated always as identity primary key,
   full_name text not null,
@@ -16,6 +38,7 @@ create table public.guests (
   country_flag text
 );
 
+-- Cabins table
 create table public.cabins (
   id bigint generated always as identity primary key,
   name text not null unique,
@@ -26,6 +49,7 @@ create table public.cabins (
   description text
 );
 
+-- Bookings table
 create table public.bookings (
   id bigint generated always as identity primary key,
   created_at timestamptz default now(),
@@ -44,6 +68,7 @@ create table public.bookings (
   status text check (status in ('unconfirmed', 'checked-in', 'checked-out')) default 'unconfirmed'
 );
 
+-- Settings table
 create table public.settings (
   id bigint generated always as identity primary key,
   min_booking_length integer not null default 1,
@@ -52,6 +77,7 @@ create table public.settings (
   breakfast_price numeric not null default 15
 );
 
+-- Initial settings record
 insert into public.settings (
   min_booking_length,
   max_booking_length,
